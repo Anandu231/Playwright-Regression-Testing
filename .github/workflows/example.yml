@@ -2,8 +2,6 @@ name: example
 
 on:
   push:
-    branches:
-      - '**'
     paths:
       - 'docs/**'
     
