@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Products</title>
+  </head>
+  <body>
+    <header>
+      <nav class="nav-bar">
+        <div class="navbar-left">
+          <div class="logo"><a href="index.html">Mini Mart</a></div>
+          <div class="nav-links">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="products.html">Products</a></li>
+              <li><a href="cart.html">Cart</a></li>
+              <li><a href="favorites.html">Favorites</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="navbar-right">
+          <div class="navbar-search">
+            <input type="text" id="searchinput" placeholder="Search...." />
+            <a href="#"><img src="assets/icons/search.png" alt="Search" /></a>
+          </div>
+          <div class="icons">
+            <ul>
+              <li>
+                <a href="favorites.html">
+                  <img src="./assets/icons/fav.png" alt="My Favorites" />
+                  <span id="fav-count" class="counter">0</span>
+                </a>
+              </li>
+              <li>
+                <a href="cart.html">
+                  <img src="./assets/icons/cart.png" alt="Cart" />
+                  <span id="cart-counter" class="counter">0</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Sort bar -->
+      <section class="sort-bar">
+      <!-- Proudct-Count -->
+        <div class="product-count">
+          <span id="product-count-text">Loading products ....</span>
+        </div>
+        <!-- Drop down Sort menu -->
+        <div class="filter-content">
+          <div class="sort-options">
+          <label for="sort-select">Sort by</label>
+          <select id="sort-select">
+            <option value="default">Default</option>
+            <option value="price-low-high">Price: Low to high</option>
+            <option value="price-high-low">Price: high to Low</option>
+            <option value="name-a-z">Name: A-z</option>
+            <option value="name-z-a">Name: Z-A</option>
+            <option value="rating-high-low">Rating: High to Low</option>
+          </select>
+        </div>
+      </section>
+      <!-- Main content -->
+      <section class="products-main-container">
+        <!-- Filter sidebar -->
+        <aside class="filters-sidebar">
+          <!-- Filter Buttons -->
+          <div class="filter-header">
+            <h3>Filters</h3>
+            <div class="filter-buttons">
+              <button id="apply-filters">Apply</button>
+              <button id="clear-filters">Clear All</button>
+            </div>
+          </div>
+          <!-- Filter by category -->
+          <div class="filter-group">
+            <h4>Category</h4>
+            <label><input type="checkbox" name="category" value="electronics">Electronics</label>
+            <label><input type="checkbox" name="category" value="fashion">Fashion</label>
+            <label><input type="checkbox" name="category" value="home and kitchen">Home & Kitchen</label>
+            <label><input type="checkbox" name="category" value="beauty">Beauty</label>
+            <label><input type="checkbox" name="category" value="sports">Sports</label>
+            <label><input type="checkbox" name="category" value="groceries">Groceries</label>
+            <label><input type="checkbox" name="category" value="automotive">Automotive</label>
+          </div>
+
+          <!-- Price Filter -->
+          <div class="filter-group">
+            <h4>Price Ranges</h4>
+            <label for=""><input name="price" type="radio" value="0-50">$0-$50</label>
+            <label for=""><input name="price" type="radio" value="50-100">$50-$100</label>
+            <label for=""><input name="price" type="radio" value="100-200">$100-$200</label>
+            <label for=""><input name="price" type="radio" value="200-400">$200-$400</label>
+            <label for=""><input name="price" type="radio" value="400-800">$400-$800</label>
+            <label for=""><input name="price" type="radio" value="800-1600">$800-$1600</label>
+            <label for=""><input name="price" type="radio" value="1600-3200">$1600-$3200</label>
+          </div>
+
+          <!-- Rating Filter -->
+          <div class="filter-group">
+            <h4>Rating</h4>
+            <label><input type="radio" name="rating" value="4-5"> 4 Stars & Above</label>
+            <label><input type="radio" name="rating" value="3-5"> 3 Stars & Above</label>
+            <label><input type="radio" name="rating" value="2-5"> 2 Stars & Above</label>
+            <label><input type="radio" name="rating" value="1-5"> Any Rating</label>
+          </div>
+        </div>
+        </aside>
+
+        <!-- Products Section and Pagination -->
+        <section class="products-section">
+          <div class="products-container" id="products-container" data-mode="all">   
+          <!-- Products will get fetched from the Api here  -->
+          </div>
+          <!-- Pagination  -->
+          <nav class="pagination">
+            <button class="page-btn" id="prev-btn">&laquo; Previous</button>
+            <div class="page-numbers" id="page-numbers">
+              <!-- page numbers will be inserted here -->
+            </div>
+            <button class="page-btn" id="next-btn">Next &laquo;</button>
+          </nav>
+        </section>
+      </section>
+      </div>
+    </main>
+
+    <footer>
+      <section class="footer">
+        <div class="footer-top">
+          <div class="footer-column">
+            <h3>Mini Mart</h3>
+            <p>Lorem Ipsum, 235 Simply, printing, Pin 309 309</p>
+            <p>info@minimart.com</p>
+            <p>+1 000 000 0000</p>
+          </div>
+          <div class="footer-column">
+            <h4>Informatoin</h4>
+            <ul>
+              <li><a href="#">Electronics</a></li>
+              <li><a href="#">Home & Kitchen</a></li>
+              <li><a href="#">Sports</a></li>
+              <li><a href="#">Groceries</a></li>
+              <li><a href="#">Beauty</a></li>
+              <li><a href="#">Fashion</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Contact Us</h4>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Track Orders</a></li>
+              <li><a href="#">Shipping</a></li>
+              <li><a href="#">Cancellation</a></li>
+              <li><a href="#">Returns</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">News</a></li>
+              <li><a href="#">Career</a></li>
+              <li><a href="#">Terms of Use</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 Mini Mart, All Rights Reserved.</p>
+          <p>Privacy Policy | Terms & Conditions</p>
+          <div class="social-icons">
+            <a href="#"
+              ><img src="./assets/icons/facebook.png" alt="Facebook"
+            /></a>
+            <a href="#"
+              ><img src="./assets/icons/linkedin.png" alt="LinkedIn"
+            /></a>
+            <a href="#"
+              ><img src="./assets/icons/twitter.png" alt="Twitter"
+            /></a>
+            <a href="#"
+              ><img src="./assets/icons/instagram.png" alt="Instagram"
+            /></a>
+            <a href="#"><img src="./assets/icons/apple.png" alt="Apple" /></a>
+            <a href="#"
+              ><img src="./assets/icons/play-store.png" alt="Google Play "
+            /></a>
+            <a href="#"
+              ><img src="./assets/icons/youtube.png" alt="YouTube"
+            /></a>
+          </div>
+        </div>
+      </section>
+    </footer>
+
+    <div id="toast" class="toast">Item added to cart</div>
+    <script type="module" src="js/products.js"></script>
+    <script type="module" src="js/utils.js"></script>
+  </body>
+</html>
