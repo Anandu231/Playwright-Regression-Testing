@@ -11,6 +11,9 @@ npm install
 # Install Playwright
 npx playwright install
 
+# Install Allure CLI
+npm install -D allure-commandline
+
 # Run the tests
 npm test
 
