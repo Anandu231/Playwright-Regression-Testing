@@ -3,8 +3,12 @@ name: example
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
 
 jobs:
   build:
