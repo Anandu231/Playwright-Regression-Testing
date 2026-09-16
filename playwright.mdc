@@ -1,0 +1,58 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Playwright.mdc Rules for playwright-skeleton project
+
+## Rules
+
+# File Structure and Naming Conventions
+- New Page Objects should be placed in the `framework/pages/` directory. They should be TypeScript classes ending with `Page.ts` (e.g., `GoogleHomePage.ts`).
+- Reusable UI components should be placed in the `framework/components/` directory. They should be TypeScript classes ideally named after the component type it is modelling from the web application. 
+- Test data files (typically JSON) should reside in the `data/files/` directory.
+- TypeScript types or interfaces for test data should be placed in the `data/types/` directory, often ending with `Data.ts` or `Types.ts`.
+- Step definitions should be placed in the `steps/` directory. They should be exported functions, potentially grouped in files by feature (e.g., `googleSearchSteps.ts`).
+- Test files using Playwright's `test` function should be located in the `test/` directory and typically end with `.spec.ts` or `.test.ts`.
+
+# Page Object Model (POM) Rules (`framework/pages/`)
+- Page objects must be implemented as TypeScript classes.
+- Page objects should encapsulate locators and interaction methods specific to a single page or route.
+- Methods within page objects should represent user actions or retrieve page state, returning meaningful data where applicable (e.g., `getSearchResults(): Promise<string[]>`).
+- Avoid putting test logic directly within page objects.
+- Always return meaningful errors when they occur in page models. Use expect from playwright for assertions. 
+
+# Component Rules (`framework/components/`)
+- Components must be implemented as TypeScript classes representing reusable UI parts (e.g., Navbars, Modals).
+- Components should encapsulate locators and interaction methods specific to that UI element.
+- Components can optionally accept a root locator string or `Locator` instance in their constructor to scope their actions.
+- Use components within Page Objects or other components to promote DRY principles.
+- Always return meaningful errors when they occur in components. Use expect from playwright for assertions. 
+
+# Step Definition Rules (`steps/`)
+- Step definitions must be implemented as exported TypeScript functions. Do not use classes for steps.
+- Step functions should orchestrate actions by calling methods on Page Objects and Components.
+- Every step definition function's primary logic must be wrapped with Allure's `step()` function, providing a descriptive name (e.g., `await step('Perform search for "query"', async () => { ... });`).
+- Steps should be designed to be reusable across multiple tests.
+
+# Test File Rules (`test/`)
+- Tests should focus on end-to-end user scenarios or business processes.
+- Tests should primarily utilize functions from the `steps/` directory to perform actions and interactions.
+- Employ a data-driven approach: load test data from `data/files/` (e.g., using a helper function) and iterate through test cases.
+- Minimize direct usage of Playwright's `page` object methods (e.g., `page.fill`, `page.click`) within test blocks. Prefer using step functions.
+- Use Playwright's `expect` for assertions within the test blocks or dedicated assertion steps.
+- Always returns meaningful descriptions when errors occur.
+
+# Test Data Rules (`data/`)
+- Test data must be kept separate from test logic, primarily in JSON files within `data/files/`.
+- Define clear TypeScript interfaces or types for your test data structures in `data/types/`. Ensure all data conforms to these types.
+- Use descriptive names for data files and properties within the data objects.
+
+# General Coding Style
+- Use TypeScript and leverage strong typing. Type all variables, function parameters, and return types.
+- Follow standard TypeScript/JavaScript naming conventions (e.g., camelCase for variables/functions, PascalCase for classes/types).
+- Prioritize code readability and maintainability. Add comments only for non-obvious logic.
+- Ensure Allure integration is correctly implemented, especially within step definitions using the `step()` function.
+- Prefer to use functional patterns where practical and to maximize code reusability. 
+- Log information within every step or when returning meaningful test data from a step, action, or component.
+- Where valuable, capture network traffic with playwrights built in Chrome DevTools library.
