@@ -1,6 +1,8 @@
 import type { PlaywrightTestConfig } from "@playwright/test";
 import { devices } from "@playwright/test";
 
+declare const process: { version: string };
+
 const config: PlaywrightTestConfig = {
   testDir: "./test",
   use: {
