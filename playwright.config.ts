@@ -6,6 +6,10 @@ declare const process: { version: string };
 const config: PlaywrightTestConfig = {
   testDir: "./test",
   testMatch: "*Wishlist.test.ts",
+
+  workers: 6,
+  fullyParallel: true,
+
   use: {
     trace: "on",
     screenshot: "only-on-failure",
