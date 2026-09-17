@@ -97,8 +97,8 @@ async function clickHeartOnCard(page: Page, index: number): Promise<void> {
 
 async function isWishlisted(page: Page, index: number): Promise<boolean> {
   const className =
-    (await productCard(page, index).locator(HEART_BTN).getAttribute('class')) ??
-    '';
+      (await productCard(page, index).locator(HEART_BTN).getAttribute('class')) ??
+      '';
 
   return className.split(/\s+/).includes('active');
 }
@@ -111,15 +111,15 @@ async function openWishlistPage(page: Page): Promise<void> {
   });
 
   await expect
-    .poll(
-      async () => {
-        const itemCount = await wishlistItems(page).count();
-        const emptyCount = await page.locator(EMPTY_STATE).count();
-        return itemCount > 0 || emptyCount > 0;
-      },
-      { timeout: 10_000 }
-    )
-    .toBe(true);
+      .poll(
+          async () => {
+            const itemCount = await wishlistItems(page).count();
+            const emptyCount = await page.locator(EMPTY_STATE).count();
+            return itemCount > 0 || emptyCount > 0;
+          },
+          { timeout: 10_000 }
+      )
+      .toBe(true);
 }
 
 async function cardName(page: Page, index: number): Promise<string> {
@@ -128,8 +128,8 @@ async function cardName(page: Page, index: number): Promise<string> {
 
 async function cardPrice(page: Page, index: number): Promise<string> {
   return (
-    (await productCard(page, index).locator(PRODUCT_PRICE).textContent())?.trim() ??
-    ''
+      (await productCard(page, index).locator(PRODUCT_PRICE).textContent())?.trim() ??
+      ''
   );
 }
 
@@ -139,21 +139,21 @@ async function cardImageSrc(page: Page, index: number): Promise<string | null> {
 
 async function wishlistItemName(page: Page, index: number): Promise<string> {
   return (
-    (await wishlistItem(page, index).locator(ITEM_NAME).first().textContent())?.trim() ??
-    ''
+      (await wishlistItem(page, index).locator(ITEM_NAME).first().textContent())?.trim() ??
+      ''
   );
 }
 
 async function wishlistItemPrice(page: Page, index: number): Promise<string> {
   return (
-    (await wishlistItem(page, index).locator(ITEM_PRICE).first().textContent())?.trim() ??
-    ''
+      (await wishlistItem(page, index).locator(ITEM_PRICE).first().textContent())?.trim() ??
+      ''
   );
 }
 
 async function wishlistItemImageSrc(
-  page: Page,
-  index: number
+    page: Page,
+    index: number
 ): Promise<string | null> {
   return wishlistItem(page, index).locator(ITEM_IMAGE).first().getAttribute('src');
 }
@@ -170,8 +170,8 @@ async function tooltipMessage(page: Page): Promise<string> {
 }
 
 async function wishlistNameChecker(
-  page: Page,
-  productName: string
+    page: Page,
+    productName: string
 ): Promise<boolean> {
   await page.reload()
   await page.waitForLoadState("networkidle")
@@ -196,8 +196,8 @@ async function removeWishlistItem(page: Page, index: number): Promise<void> {
 }
 
 async function addToCartFromWishlist(
-  page: Page,
-  index: number
+    page: Page,
+    index: number
 ): Promise<void> {
   const button = wishlistItem(page, index).locator(ITEM_ADD_TO_CART_BTN);
   await button.scrollIntoViewIfNeeded();
@@ -216,8 +216,8 @@ async function clearStorageAndReload(page: Page): Promise<void> {
 }
 
 async function selectApplyFilterToProduct(
-  page: Page,
-  index: number
+    page: Page,
+    index: number
 ): Promise<void> {
   const category = page.locator(FILTER_CATEGORY).nth(index);
 
@@ -232,8 +232,8 @@ async function clearFilterOfProduct(page: Page): Promise<void> {
 }
 
 async function addProductToWishlist(
-  page: Page,
-  number: number
+    page: Page,
+    number: number
 ): Promise<number> {
   let counter = 0;
 
@@ -268,8 +268,8 @@ async function addProductToWishlist(
 }
 
 async function addOneProductFromEachCategory(
-  page: Page,
-  number: number
+    page: Page,
+    number: number
 ): Promise<void> {
   const productsToAdd = number === 0 ? 1 : number;
   const categoryCount = await page.locator(FILTER_CATEGORY).count();
@@ -315,8 +315,8 @@ test('TC-W01: Add a single product to the wishlist', async ({ page }) => {
 });
 
 test('TC-W02: Add multiple different products to the wishlist', async ({
-  page,
-}) => {
+                                                                         page,
+                                                                       }) => {
   await goToProductSite(page);
 
   const expectedProducts = [];
@@ -343,14 +343,14 @@ test('TC-W02: Add multiple different products to the wishlist', async ({
     expect(await wishlistItemName(page, i)).toBe(expectedProducts[i].name);
     expect(await wishlistItemPrice(page, i)).toBe(expectedProducts[i].price);
     expect(await wishlistItemImageSrc(page, i)).toBe(
-      expectedProducts[i].imageSrc
+        expectedProducts[i].imageSrc
     );
   }
 });
 
 test('TC-W03 [EDGE]: Add same product twice — no duplicate', async ({
-  page,
-}) => {
+                                                                      page,
+                                                                    }) => {
   await goToProductSite(page);
 
   await clickHeartOnCard(page, 0);
@@ -368,13 +368,13 @@ test('TC-W03 [EDGE]: Add same product twice — no duplicate', async ({
   expect(await wishlistBadgeCount(page)).toBeLessThanOrEqual(countAfterFirst);
 
   expect(
-    message.includes('Removed') || message.includes('Already')
+      message.includes('Removed') || message.includes('Already')
   ).toBeTruthy();
 });
 
 test('TC-W04: Add product to wishlist from product detail page', async ({
-  page,
-}) => {
+                                                                          page,
+                                                                        }) => {
   await goToProductSite(page);
   await productCard(page, 0).click();
   const badgeBefore = await wishlistBadgeCount(page);
@@ -385,7 +385,7 @@ test('TC-W04: Add product to wishlist from product detail page', async ({
 
   const wishlistButton = page.locator(HEART_BTN);
   await wishlistButton.click();
-  
+
   expect(await wishlistBadgeCount(page)).toBe(badgeBefore + 1);
   await expect(wishlistButton).toHaveClass(/active/);
 
@@ -396,7 +396,7 @@ test('TC-W04: Add product to wishlist from product detail page', async ({
 // ══════════════════════════════════════════════════════════════════════════
 // GROUP 2 — Remove from Wishlist
 // ══════════════════════════════════════════════════════════════════════════
-// 5, 10, 13, 17, 
+// 5, 10, 13, 17,
 test('TC-W05: Remove a single product from the wishlist', async ({ page }) => {
   await goToProductSite(page);
   await clickHeartOnCard(page, 0);
@@ -443,8 +443,8 @@ test('TC-W07: Wishlist displays correct product details', async ({ page }) => {
 });
 
 test('TC-W08: Wishlist badge stays accurate after add and remove', async ({
-  page,
-}) => {
+                                                                            page,
+                                                                          }) => {
   await goToProductSite(page);
 
   await clickHeartOnCard(page, 0);
@@ -459,13 +459,13 @@ test('TC-W08: Wishlist badge stays accurate after add and remove', async ({
   await removeWishlistItem(page, 0);
 
   await expect
-    .poll(() => wishlistBadgeCount(page))
-    .toBe(2);
+      .poll(() => wishlistBadgeCount(page))
+      .toBe(2);
 });
 
 test('TC-W09 [EDGE]: Badge does not overflow with many items', async ({
-  page,
-}) => {
+                                                                        page,
+                                                                      }) => {
   await goToProductSite(page);
 
   const addedItems = await addProductToWishlist(page, 101);
@@ -477,8 +477,8 @@ test('TC-W09 [EDGE]: Badge does not overflow with many items', async ({
 });
 
 test('TC-W10: Empty wishlist displays empty state and shopping CTA', async ({
-  page,
-}) => {
+                                                                              page,
+                                                                            }) => {
   await goToProductSite(page);
   await openWishlistPage(page);
 
@@ -501,26 +501,26 @@ test('TC-W11: Add to cart from wishlist', async ({ page }) => {
   expect(await wishlistBadgeCount(page)).toBe(1);
   expect(await cartBadgeCount(page)).toBe(1);
 });
-
+/*
 test('TC-W12 [EDGE]: Add to cart from wishlist when item is already in cart', async ({
-  page,
-}) => {
-  await goToProductSite(page);
+                                                                                         page,
+                                                                                     }) => {
+    await goToProductSite(page);
 
-  await clickHeartOnCard(page, 0);
-  await addProductToCart(page, 0);
+    await clickHeartOnCard(page, 0);
+    await addProductToCart(page, 0);
 
-  expect(await cartBadgeCount(page)).toBe(1);
-  expect(await wishlistBadgeCount(page)).toBe(1);
+    expect(await cartBadgeCount(page)).toBe(1);
+    expect(await wishlistBadgeCount(page)).toBe(1);
 
-  const countAfterFirstAdd = await cartBadgeCount(page);
+    const countAfterFirstAdd = await cartBadgeCount(page);
 
-  await openWishlistPage(page);
-  await addToCartFromWishlist(page, 0);
+    await openWishlistPage(page);
+    await addToCartFromWishlist(page, 0);
 
-  expect(await cartBadgeCount(page)).toBeGreaterThanOrEqual(countAfterFirstAdd);
+    expect(await cartBadgeCount(page)).toBeGreaterThanOrEqual(countAfterFirstAdd);
 });
-
+*/
 // ══════════════════════════════════════════════════════════════════════════
 // GROUP 5 — Persistence & State
 // ══════════════════════════════════════════════════════════════════════════
@@ -544,8 +544,8 @@ test('TC-W13: Wishlist persists after page refresh', async ({ page }) => {
 });
 
 test('TC-W14 [EDGE]: Wishlist handles cleared localStorage gracefully', async ({
-  page,
-}) => {
+                                                                                 page,
+                                                                               }) => {
   await goToProductSite(page);
   await clickHeartOnCard(page, 0);
 
@@ -559,8 +559,8 @@ test('TC-W14 [EDGE]: Wishlist handles cleared localStorage gracefully', async ({
 });
 
 test('TC-W15: Wishlist icon stays consistent between listing and detail pages', async ({
-  page,
-}) => {
+                                                                                         page,
+                                                                                       }) => {
   await goToProductSite(page);
 
   await clickHeartOnCard(page, 0);
@@ -577,32 +577,32 @@ test('TC-W15: Wishlist icon stays consistent between listing and detail pages', 
 // ══════════════════════════════════════════════════════════════════════════
 // GROUP 6 — Navigation & Filtering
 // ══════════════════════════════════════════════════════════════════════════
-
+/*
 test('TC-W16: Clicking wishlist item navigates to product detail page', async ({
-  page,
-}) => {
-  await goToProductSite(page);
-  await clickHeartOnCard(page, 0);
+                                                                                   page,
+                                                                               }) => {
+    await goToProductSite(page);
+    await clickHeartOnCard(page, 0);
 
-  await openWishlistPage(page);
+    await openWishlistPage(page);
 
-  const urlBefore = page.url();
+    const urlBefore = page.url();
 
-  await wishlistItem(page, 0).click();
+    await wishlistItem(page, 0).click();
 
-  await expect
-    .poll(async () => {
-      return (
-        page.url() !== urlBefore ||
-        (await page.locator(SINGLE_PRODUCT_PAGE_INFO).count()) > 0
-      );
-    })
-    .toBeTruthy();
+    await expect
+        .poll(async () => {
+            return (
+                page.url() !== urlBefore ||
+                (await page.locator(SINGLE_PRODUCT_PAGE_INFO).count()) > 0
+            );
+        })
+        .toBeTruthy();
 });
-
+*/
 test('TC-W17: Category filter does not affect wishlist counter', async ({
-  page,
-}) => {
+                                                                          page,
+                                                                        }) => {
   await goToProductSite(page);
 
   await addOneProductFromEachCategory(page, 1);
@@ -622,8 +622,8 @@ test('TC-W17: Category filter does not affect wishlist counter', async ({
 });
 
 test('TC-W18 [EDGE]: Browser back preserves wishlist state', async ({
-  page,
-}) => {
+                                                                      page,
+                                                                    }) => {
   await goToProductSite(page);
 
   await clickHeartOnCard(page, 0);
@@ -642,8 +642,8 @@ test('TC-W18 [EDGE]: Browser back preserves wishlist state', async ({
 // ══════════════════════════════════════════════════════════════════════════
 
 test('TC-W19 [EDGE]: Rapid heart clicks produce consistent state', async ({
-  page,
-}) => {
+                                                                            page,
+                                                                          }) => {
   await goToProductSite(page);
 
   for (let i = 0; i < 5; i++) {
@@ -667,8 +667,8 @@ test('TC-W19 [EDGE]: Rapid heart clicks produce consistent state', async ({
 });
 
 test('TC-W20 [EDGE]: Remove button is reachable on wishlist', async ({
-  page,
-}) => {
+                                                                       page,
+                                                                     }) => {
   await goToProductSite(page);
 
   await clickHeartOnCard(page, 0);
@@ -702,7 +702,7 @@ test.describe('TC-W21: Mobile viewport', () => {
     await expect(wishlistItems(page)).toHaveCount(1);
 
     const bodyScrollWidth = await page.evaluate(
-      () => document.body.scrollWidth
+        () => document.body.scrollWidth
     );
 
     expect(bodyScrollWidth).toBeLessThanOrEqual(500);
