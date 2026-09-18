@@ -1,25 +1,21 @@
-// TC01_Product.test.ts
-// Converted from TC01_Product.java (Selenium/TestNG → Playwright/TypeScript)
-// Reference: PLAYWRIGHT_CONVERSION.md
+import { test, expect } from '@playwright/test';
+import { ProductsPage } from '../framework/pages/ProductsPage';
 
-import { test, expect, Page } from '@playwright/test';
+test.beforeEach(async ({ page }) => {
+  const products = new ProductsPage(page);
+  await products.goto();
+});
 
-async function searchProduct(page: Page, productName: string): Promise<void> {
-  await page.getByRole('link', { name: 'Products' }).click();
+async function searchProduct(page: import('@playwright/test').Page, term: string): Promise<void> {
+  const products = new ProductsPage(page);
+  await products.navigate();
+  await products.search(term);
 
-  const searchBox = page.locator('#searchinput');
-  await expect(searchBox).toBeVisible();
-
-  await searchBox.clear();
-  await searchBox.fill(productName);
-
-  const productTitles = await page.locator('div.product-card h3.product-title').allTextContents();
-
-  const found = productTitles.some(title =>
-    title.toLowerCase().includes(productName.toLowerCase())
-  );
-
-  expect(found, `${productName} product was not found`).toBeTruthy();
+  const titles = await page.locator('div.product-card h3.product-title').allTextContents();
+  expect(titles.length).toBeGreaterThan(0);
+  for (const title of titles) {
+    expect(title.toLowerCase()).toContain(term.toLowerCase());
+  }
 }
 
 test('SearchPartialKeyword', async ({ page }) => {
@@ -29,8 +25,3 @@ test('SearchPartialKeyword', async ({ page }) => {
 test('SearchFullKeyword', async ({ page }) => {
   await searchProduct(page, 'Mascara');
 });
-
-// Commented out in original:
-// test.skip('dummy', async ({ page }) => {
-//   expect(false).toBeTruthy();
-// });

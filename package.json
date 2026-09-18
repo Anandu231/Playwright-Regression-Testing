@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "playwright test",
+    "test": "playwright test --workers=50%",
     "smoke": "playwright test --grep @smoke",
     "regression": "playwright test --grep @regression"
   },
