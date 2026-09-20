@@ -103,7 +103,7 @@ test('verifyEmptyCartState', async ({ page }) => {
   await page.evaluate(() => localStorage.removeItem('miniMartCart'));
   await page.reload();
 
-  const soft = expect.configure({ soft: true });
+  const soft = expect.soft;
   await soft(page.locator('#cart-item-counter')).toHaveText('0 items');
   await soft(cart.subtotal).toHaveText('$0.00');
   await soft(cart.shipping).toHaveText('$0.00');
