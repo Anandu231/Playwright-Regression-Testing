@@ -5,11 +5,15 @@ declare const process: { version: string };
 
 const config: PlaywrightTestConfig = {
   testDir: "./test",
-  testMatch: "*Wishlist.test.ts",
+
+  fullyParallel: true,
+
   use: {
+    baseURL: "https://surajkumar-ibm.github.io/Selenium-Miniproject-Application/",
     trace: "on",
     screenshot: "only-on-failure",
   },
+
   reporter: [
     ["list"],
     [
@@ -22,6 +26,7 @@ const config: PlaywrightTestConfig = {
       },
     ],
   ],
+
   projects: [
     {
       name: "chromium",
@@ -30,6 +35,7 @@ const config: PlaywrightTestConfig = {
       },
     },
   ],
+
   outputDir: "test-results/",
 };
 

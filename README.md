@@ -24,15 +24,14 @@ npx allure serve
 ## Project Structure
 
 ```
-├── framework/      # Core framework components
-│   └── pages/      # Page Object Models
-|   └── components/ # Common components patterns 
-├── data/           # Test data
-|   └── files       # Test data files
-|   └── types       # Test data types
-├── steps/          # Functional step definitions
-└── test/           # Test files
-
+├── framework/
+│   ├── pages/        # Page Object Models (BasePage, ProductsPage, CartPage, WishlistPage, CheckoutPage)
+│   └── components/   # Reusable UI component abstractions
+├── data/
+│   ├── files/        # JSON test data files
+│   └── types/        # TypeScript interfaces for test data
+├── steps/            # Allure-wrapped step definitions
+└── test/             # Test files (TC01–TC10)
 ```
 
 ## Overview
