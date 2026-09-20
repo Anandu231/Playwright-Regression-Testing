@@ -47,5 +47,5 @@ test('multipleDiscount', async ({ page }) => {
 
   // Stacked discounts may push total below zero; verify the value is a valid number (not NaN)
   const total = await checkout.parsePrice(checkout.totalCost);
-  expect(total < 0).toBe(false);
+  expect(total <= 0).toBe(false);
 });
